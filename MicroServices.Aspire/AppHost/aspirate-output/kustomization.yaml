@@ -1,0 +1,15 @@
+namespace: demo
+
+resources:
+- postgres-todos
+- postgres-users
+- userservice
+- todoservice
+- namespace.yaml
+- dapr/pubsub.yaml
+- dashboard.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+

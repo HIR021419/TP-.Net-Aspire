@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-users
+  labels:
+    app: postgres-users
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-users
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres-users
+    spec:
+      containers:
+      - name: postgres-users
+        image: docker.io/library/postgres:17.6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: tcp
+          containerPort: 5432
+        envFrom:
+        - configMapRef:
+            name: postgres-users-env
+        - secretRef:
+            name: postgres-users-secrets
+      terminationGracePeriodSeconds: 180

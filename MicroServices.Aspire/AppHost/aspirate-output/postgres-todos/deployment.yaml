@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgres-todos
+  labels:
+    app: postgres-todos
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres-todos
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: postgres-todos
+    spec:
+      containers:
+      - name: postgres-todos
+        image: docker.io/library/postgres:17.6
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: tcp
+          containerPort: 5432
+        envFrom:
+        - configMapRef:
+            name: postgres-todos-env
+        - secretRef:
+            name: postgres-todos-secrets
+      terminationGracePeriodSeconds: 180

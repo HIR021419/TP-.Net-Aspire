@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userservice
+  labels:
+    app: userservice
+  annotations:
+    dapr.io/enabled: 'true'
+    dapr.io/config: tracing
+    dapr.io/app-id: userservice
+    dapr.io/enable-api-logging: 'true'
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userservice
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: userservice
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/config: tracing
+        dapr.io/app-id: userservice
+        dapr.io/enable-api-logging: 'true'
+    spec:
+      containers:
+      - name: userservice
+        image: localhost:5001/luciebouvard/userservice:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        envFrom:
+        - configMapRef:
+            name: userservice-env
+        - secretRef:
+            name: userservice-secrets
+      terminationGracePeriodSeconds: 180

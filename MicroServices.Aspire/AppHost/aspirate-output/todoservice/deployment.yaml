@@ -1,0 +1,45 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: todoservice
+  labels:
+    app: todoservice
+  annotations:
+    dapr.io/enabled: 'true'
+    dapr.io/config: tracing
+    dapr.io/app-id: todoservice
+    dapr.io/enable-api-logging: 'true'
+spec:
+  minReadySeconds: 60
+  replicas: 1
+  selector:
+    matchLabels:
+      app: todoservice
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: todoservice
+      annotations:
+        dapr.io/enabled: 'true'
+        dapr.io/config: tracing
+        dapr.io/app-id: todoservice
+        dapr.io/enable-api-logging: 'true'
+    spec:
+      containers:
+      - name: todoservice
+        image: localhost:5001/luciebouvard/todoservice:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 8080
+        - name: https
+          containerPort: 8443
+        envFrom:
+        - configMapRef:
+            name: todoservice-env
+        - secretRef:
+            name: todoservice-secrets
+      terminationGracePeriodSeconds: 180

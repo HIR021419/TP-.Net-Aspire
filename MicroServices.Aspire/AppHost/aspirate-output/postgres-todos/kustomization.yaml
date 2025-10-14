@@ -1,0 +1,19 @@
+resources:
+- deployment.yaml
+- service.yaml
+
+generatorOptions:
+  disableNameSuffixHash: true
+
+configMapGenerator:
+- name: postgres-todos-env
+  literals:
+    - POSTGRES_HOST_AUTH_METHOD=scram-sha-256
+    - POSTGRES_INITDB_ARGS=--auth-host=scram-sha-256 --auth-local=scram-sha-256
+    - POSTGRES_USER=yann
+    - POSTGRES_DB=Todos
+
+secretGenerator:
+- name: postgres-todos-secrets
+  envs:
+  - .postgres-todos.secrets

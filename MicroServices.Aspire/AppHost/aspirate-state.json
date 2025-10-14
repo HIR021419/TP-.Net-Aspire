@@ -1,0 +1,47 @@
+{
+  "projectPath": ".",
+  "inputPath": "aspirate-output",
+  "outputPath": "aspirate-output",
+  "namespace": "demo",
+  "containerRegistry": "localhost:5001",
+  "containerImageTags": [
+    "latest"
+  ],
+  "containerBuilder": "docker",
+  "containerRepositoryPrefix": "luciebouvard",
+  "kubeContext": "rancher-desktop",
+  "outputFormat": "kustomize",
+  "skipFinalKustomizeGeneration": false,
+  "privateRegistryEmail": "aspir8@aka.ms",
+  "useCustomNamespace": true,
+  "secrets": {
+    "salt": "9KHPHuhAbIj9LSxK",
+    "hash": "IF4VylVDYEW/h6HHbs4hhZBL8VC2Jq6En7clSgsaPXE=",
+    "secrets": {
+      "username": {
+        "value": "9KHPHuhAbIj9LSxKYf9Q2ZiuY5lYlD2RmUgUXlYDpms="
+      },
+      "password": {
+        "value": "9KHPHuhAbIj9LSxKBst9dRtyl7wj5YWba1dNTlsHu3F/23zP"
+      },
+      "postgres-todos": {
+        "POSTGRES_PASSWORD": "9KHPHuhAbIj9LSxKBst9dRtyl7wj5YWba1dNTlsHu3F/23zP"
+      },
+      "Todos": {},
+      "postgres-users": {
+        "POSTGRES_PASSWORD": "9KHPHuhAbIj9LSxKBst9dRtyl7wj5YWba1dNTlsHu3F/23zP"
+      },
+      "Users": {},
+      "pubsub": {},
+      "userservice": {
+        "ConnectionStrings__Users": "9KHPHuhAbIj9LSxKOcROcFSqlB3EeO4jSeuhb2cNu3FzmSCIKXFeGlnIJQX\u002B/kCWPHjAZjwMjaRklL4TzgHcdXxjjVrhf0pbUTqnMv1evn4TZXheoPLnvDl\u002BkwH\u002BOxoyoLl63mXr\u002Bo8="
+      },
+      "userservice-dapr": {},
+      "todoservice": {
+        "ConnectionStrings__Todos": "9KHPHuhAbIj9LSxK8PGRHZO8Ofue0r\u002BmB5J8yWcNu3FzmSCIKXFeGlnIJBn/40CWPHjAZjwMjaRklL4TzgHcdXxjjVrhf0pbUTqnMv1evn4TZXheoPLnvDl\u002BkwH\u002BOxoyoLl633nq548="
+      },
+      "todoservice-dapr": {}
+    }
+  },
+  "processAllComponents": true
+}
