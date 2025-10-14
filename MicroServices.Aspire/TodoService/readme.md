@@ -1,1 +1,0 @@
-Scaffold-DbContext "Host=localhost;Database=Todo;Username=postgres;Password=mysecretpassword;Port=5432" Npgsql.EntityFrameworkCore.PostgreSQL -o DataAccess
