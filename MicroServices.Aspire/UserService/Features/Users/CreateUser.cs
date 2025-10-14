@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Dapr.Client;
 using UserService.DataAccess;
 using UserService.Models;
 using UserService.Tools;
@@ -18,7 +18,7 @@ namespace UserService.Features.Users
                 app.MapPost("/users", Handler).WithTags("Users");
             }
 
-            public static async Task<IResult> Handler(RequestCreateUser request, UserServiceContext db)
+            public static async Task<IResult> Handler(RequestCreateUser request, UserServiceContext db, DaprClient daprClient)
             {
                 var user = new User
                 {
@@ -29,6 +29,9 @@ namespace UserService.Features.Users
                 };
                 db.Users.Add(user);
                 await db.SaveChangesAsync();
+                
+                await daprClient.PublishEventAsync("pubsub", "user", new { Id = user.ID, Name = user.Name});
+                
                 return Results.Created($"/users/{user.ID}", user);
             }
         }

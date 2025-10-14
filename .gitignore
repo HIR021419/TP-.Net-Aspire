@@ -4,3 +4,4 @@ obj
 bin
 *.http
 .DS_Store
+Migrations
